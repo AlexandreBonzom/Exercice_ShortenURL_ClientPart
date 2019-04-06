@@ -31,7 +31,9 @@ class Home extends Component {
 
   updateArrayUrl = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/read");
+      const response = await axios.get(
+        "https://server-side-short-url.herokuapp.com/read"
+      );
       this.setState({ arrayShortenUrl: response.data, normalUrl: "" });
     } catch (error) {
       this.errorHandler(error);
@@ -49,24 +51,13 @@ class Home extends Component {
     e.preventDefault();
     if (this.state.isUrlValid && this.state.normalUrl) {
       try {
-        await axios.post("http://localhost:3000/create", {
+        await axios.post("https://server-side-short-url.herokuapp.com/create", {
           normalUrl: this.state.normalUrl
         });
         this.updateArrayUrl();
       } catch (error) {
         this.errorHandler(error);
       }
-    }
-  };
-
-  handleClickShorthenUrl = async shortenUrl => {
-    try {
-      await axios.post("http://localhost:3000/update", {
-        shortenUrl: shortenUrl
-      });
-      this.updateArrayUrl();
-    } catch (error) {
-      this.errorHandler(error);
     }
   };
 
@@ -90,7 +81,7 @@ class Home extends Component {
 
         <ArrayUrl
           arrayShortenUrl={this.state.arrayShortenUrl}
-          handleClickShorthenUrl={this.handleClickShorthenUrl}
+          updateArrayUrl={this.updateArrayUrl}
         />
       </>
     );

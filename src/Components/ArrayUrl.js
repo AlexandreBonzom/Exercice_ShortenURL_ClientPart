@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const ArrayUrl = props => {
   return (
@@ -11,6 +12,11 @@ const ArrayUrl = props => {
       <ul>
         {props.arrayShortenUrl.length > 0 &&
           props.arrayShortenUrl.map(shortenUrl => {
+            const randomCharacters = shortenUrl.shortenUrl.substring(
+              shortenUrl.shortenUrl.length - 5,
+              shortenUrl.shortenUrl.length
+            );
+
             return (
               <li key={shortenUrl._id}>
                 <span>
@@ -22,18 +28,10 @@ const ArrayUrl = props => {
                     {shortenUrl.normalUrl}
                   </a>
                 </span>
-                <span
-                  onClick={() =>
-                    props.handleClickShorthenUrl(shortenUrl.shortenUrl)
-                  }
-                >
-                  <a
-                    href={shortenUrl.normalUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                <span onClick={() => setTimeout(props.updateArrayUrl, 1000)}>
+                  <Link to={randomCharacters} target="_blank">
                     {shortenUrl.shortenUrl}
-                  </a>
+                  </Link>
                 </span>
                 <span className="counter-column">{shortenUrl.counter}</span>
               </li>
