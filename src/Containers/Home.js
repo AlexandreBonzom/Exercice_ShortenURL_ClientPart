@@ -3,6 +3,7 @@ import axios from "axios";
 //import components
 import Header from "../Components/Header";
 import ArrayUrl from "../Components/ArrayUrl";
+import isUrl from "is-url";
 
 class Home extends Component {
   state = {
@@ -62,9 +63,7 @@ class Home extends Component {
   };
 
   handleOnBlur = () => {
-    const valid = /^(ftp|http|https):\/\/[^ "]+$/.test(this.state.normalUrl);
-
-    this.setState({ isUrlValid: valid });
+    this.setState({ isUrlValid: isUrl(this.state.normalUrl) });
   };
 
   render() {
